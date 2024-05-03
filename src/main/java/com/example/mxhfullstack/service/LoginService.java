@@ -1,6 +1,7 @@
 package com.example.mxhfullstack.service;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -52,11 +53,13 @@ public class LoginService {
        if (response.getStatusCode().is2xxSuccessful()) {
 
            String json = response.getBody(); 
-//           ObjectMapper objectMapper = new ObjectMapper();
-//           LoggedInfo loggedInfo = objectMapper.readValue(json, LoginService.LoggedInfo.class);
-//           appConfig.cookieStore().setCookie(loggedInfo.getToken());
-//           appConfig.cookieStore().setRoles(loggedInfo.getRole());
-//           appConfig.cookieStore().setUsername(loggedInfo.getUsername());
+           ObjectMapper objectMapper = new ObjectMapper();
+           LoggedInfo loggedInfo = objectMapper.readValue(json, LoginService.LoggedInfo.class);
+           appConfig.cookieStore().setCookie(loggedInfo.getToken());
+           appConfig.cookieStore().setRoles(loggedInfo.getRole());
+           appConfig.cookieStore().setUsername(loggedInfo.getUsername());
+           System.out.println("token: " + appConfig.cookieStore().getCookie());
+           System.out.println("lagi: " + appConfig.cookieStore().getHeaders());
            return "OK";
        } else {
            throw new RuntimeException("Failed to login. Status code: " + response.getStatusCodeValue());
@@ -77,4 +80,33 @@ public class LoginService {
 	   	}
 	   	return "Logout fail";
 	   }
+	   
+	   static class LoggedInfo {
+			  String token;
+			  List<String> role;
+			  String username;
+			
+			public String getToken() {
+				return token;
+			}
+			public void setToken(String token) {
+				this.token = token;
+			}
+			public List<String> getRole() {
+				return role;
+			}
+			public void setRole(List<String> roles) {
+				this.role = roles;
+			}
+			
+			public String getUsername() {
+				return username;
+			}
+			
+			public void setUsername(String username) {
+				this.username = username;
+			}
+	 }
+	   
+	   
 }

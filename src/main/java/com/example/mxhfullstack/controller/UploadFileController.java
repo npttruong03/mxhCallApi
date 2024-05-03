@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.mxhfullstack.model.Image;
+import com.example.mxhfullstack.response.ImageResponse;
 import com.example.mxhfullstack.service.UploadFileService;
 
 @Controller
@@ -28,9 +29,9 @@ public class UploadFileController {
 //    }
 	
 	  @PostMapping("/upload")
-	    public String handleFileUpload(@RequestParam("files") MultipartFile[] files, Model model) {
+	    public String handleFileUpload(@RequestParam(value = "files", required = false) MultipartFile[] files, Model model) {
 	        try {
-	            List<Image> responseEntity = uploadFileService.uploadFiles(files);
+	        	List<ImageResponse> responseEntity = uploadFileService.uploadFiles(files);
 	            model.addAttribute("image", responseEntity);
 	            return "redirect:/index";
 	        } catch (Exception e) {

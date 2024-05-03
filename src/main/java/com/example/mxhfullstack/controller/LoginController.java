@@ -40,6 +40,7 @@ public class LoginController {
 			RedirectAttributes redirectAttributes, HttpServletResponse response, HttpSession session) {
         try {
             String token = loginService.loginAndGetToken(username, password);
+            session.setAttribute("token", token);
 // Save the token to the response cookie or session as needed
 //            HttpHeaders responseHeaders = new HttpHeaders();
 //            responseHeaders.set(HttpHeaders., token);

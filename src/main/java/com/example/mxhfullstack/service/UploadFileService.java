@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.mxhfullstack.Utils.Utils;
 import com.example.mxhfullstack.config.AppConfig;
 import com.example.mxhfullstack.model.Image;
+import com.example.mxhfullstack.response.ImageResponse;
 
 
 @Service
@@ -50,7 +51,7 @@ public class UploadFileService {
 //		return response.getBody();	
 //	}
 	
-	public List<Image> uploadFiles(MultipartFile[] files) {
+	public List<ImageResponse> uploadFiles(MultipartFile[] files) {
 		String apiString = apiURL;
         
         HttpHeaders headers = new HttpHeaders();
@@ -63,11 +64,11 @@ public class UploadFileService {
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-        ResponseEntity<List<Image>> responseEntity = restTemplate.exchange(
+        ResponseEntity<List<ImageResponse>> responseEntity = restTemplate.exchange(
                 URI.create(apiString),
                 HttpMethod.POST,
                 requestEntity,
-                new ParameterizedTypeReference<List<Image>>() {}
+                new ParameterizedTypeReference<List<ImageResponse>>() {}
         );
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) {

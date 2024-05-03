@@ -16,7 +16,7 @@ public class Cookie {
     public void setCookie(String cookie) {
         this.cookie = cookie;
         headers = new HttpHeaders();
-        headers.add("Cookie", "jwtToken=" + cookie + "; Max-Age=3600");
+        headers.add("Authorization", "Bearer " + cookie);
     }
     
     public HttpHeaders getHeaders() {

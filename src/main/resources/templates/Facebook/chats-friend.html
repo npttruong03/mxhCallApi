@@ -488,21 +488,27 @@
                                 <a href="#" class="see-all"> See all in Messages</a>
                             </div>
 
-
-                            <a href="#">
-                                <img src="assets/images/avatars/avatar-2.jpg" class="is_avatar" alt="">
-                            </a>
+							<div th:each="user : ${user}">
+	                            <a href="#">
+									<img th:if="${user.avatar_image != null}" th:src="${user.avatar_image.linkImage}" alt="" class="is_avatar">
+									<img th:if="${user.avatar_image == null}" th:src="@{/assets/images/avata_default.jpg}" alt="" class="is_avatar">
+	                            </a>
+							</div>
+							<div id="meId" th:text="${user.id}"></div>
+							<div class="userIdBynewMessage" style="display: none;"></div>
                             <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
-
-                                <a href="timeline.html" class="user">
-                                    <div class="user_avatar">
-                                        <img src="assets/images/avatars/avatar-2.jpg" alt="">
-                                    </div>
-                                    <div class="user_name">
-                                        <div> Stella Johnson </div>
-                                        <span> @johnson</span>
-                                    </div>
-                                </a>
+								<div th:each="user : ${user}">
+									<a href="#" class="user">
+	                                    <div class="user_avatar">
+	                                        <img th:if="${user.avatar_image != null}" th:src="${user.avatar_image.linkImage}" alt="">
+											<img th:if="${user.avatar_image == null}" th:src="@{/assets/images/avata_default.jpg}" alt="">
+	                                    </div>
+	                                    <div class="user_name">
+											<div th:text="${user.lastName + ' ' + user.firstName}"></div>
+	                                        <span></span>
+	                                    </div>
+	                                </a>
+								</div>
                                 <hr>
                                 <a href="pages-upgrade.html" class="is-link">
                                     <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path></svg>
@@ -658,123 +664,17 @@
                                 <input id="autocomplete-input" type="text" placeholder="Search">
                                 <i class="icon-material-outline-search"></i>
                             </div>
+                            <!-- Nhúng giá trị của biến token vào một thẻ div -->
+<div id="tokenValue" data-token="${session.getAttribute('token')}" style="display: none;">
+	<p th:text="${session.token}" id="tokenValue"></p>
+</div>
+
                             <h2 class="text-2xl font-semibold">Chats</h2>
                             <span class="absolute icon-feather-edit mr-4 text-xl uk-position-center-right cursor-pointer"></span>
                         </div>
                         <div class="messages-inbox-inner" data-simplebar>
-                            <ul>
+                            <ul id="listUserMessage">
 
-                                <li>
-                                    <a href="#">
-                                        <div class="message-avatar"><i class="status-icon status-online"></i><img src="assets/images/avatars/avatar-1.jpg" alt=""></div>
-
-                                        <div class="message-by">
-                                            <div class="message-by-headline">
-                                                <h5>Stella Johnson</h5>
-                                                <span>4 hours ago</span>
-                                            </div>
-                                            <p>laoreet dolore magna aliquam erat volutpat sed diam nonummy</p>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li class="active-message">
-                                    <a href="#">
-                                        <div class="message-avatar"><i class="status-icon status-offline"></i><img src="assets/images/avatars/avatar-2.jpg" alt=""></div>
-
-                                        <div class="message-by">
-                                            <div class="message-by-headline">
-                                                <h5>Adrian Mohani</h5>
-                                                <span>Yesterday</span>
-                                            </div>
-                                            <p>Sed diam nonummy nibh euismod tincidunt ut laoreet dolore</p>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="message-avatar"><i class="status-icon status-offline"></i><img src="assets/images/avatars/avatar-3.jpg" alt=""></div>
-
-                                        <div class="message-by">
-                                            <div class="message-by-headline">
-                                                <h5>Alia Dolgove</h5>
-                                                <span>2 days ago</span>
-                                            </div>
-                                            <p>Dipiscing elit, sed diam nonummy nibh euismod tincidunt </p>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="message-avatar"><i class="status-icon status-online"></i><img src="assets/images/avatars/avatar-4.jpg" alt=""></div>
-
-                                        <div class="message-by">
-                                            <div class="message-by-headline">
-                                                <h5>Jonathan Madano</h5>
-                                                <span>2 days ago</span>
-                                            </div>
-                                            <p>Nisl ut aliquip ex ea commodo consequa!</p>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="message-avatar"><i class="status-icon status-online"></i><img src="assets/images/avatars/avatar-6.jpg" alt=""></div>
-
-                                        <div class="message-by">
-                                            <div class="message-by-headline">
-                                                <h5>Stella Johnson</h5>
-                                                <span>4 hours ago</span>
-                                            </div>
-                                            <p>laoreet dolore magna aliquam erat volutpat sed diam nonummy</p>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="message-avatar"><i class="status-icon status-offline"></i><img src="assets/images/avatars/avatar-5.jpg" alt=""></div>
-
-                                        <div class="message-by">
-                                            <div class="message-by-headline">
-                                                <h5>Adrian Mohani</h5>
-                                                <span>Yesterday</span>
-                                            </div>
-                                            <p>Hi Tom! Hate to break it to you but I'm actually on vacation</p>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="message-avatar"><i class="status-icon status-offline"></i><img src="assets/images/avatars/avatar-1.jpg" alt=""></div>
-
-                                        <div class="message-by">
-                                            <div class="message-by-headline">
-                                                <h5>Alia Dolgove</h5>
-                                                <span>2 days ago</span>
-                                            </div>
-                                            <p>Dipiscing elit, sed diam nonummy nibh euismod tincidunt </p>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="message-avatar"><i class="status-icon status-online"></i><img src="assets/images/avatars/avatar-2.jpg" alt=""></div>
-
-                                        <div class="message-by">
-                                            <div class="message-by-headline">
-                                                <h5>Jonathan Madano</h5>
-                                                <span>2 days ago</span>
-                                            </div>
-                                            <p>Nisl ut aliquip ex ea commodo consequa</p>
-                                        </div>
-                                    </a>
-                                </li>
 
                             </ul>
                         </div>
@@ -782,112 +682,18 @@
 
 
                     <div class="message-content">
+							<div id="name-message">
 
-                        <div class="messages-headline">
-                            <h4> Stella Johnson </h4>
-                            <a href="#" class="message-action text-red-500"><i class="icon-feather-trash-2"></i> <span class="md:inline hidden"> Delete Conversation</span> </a>
-                        </div>
-
-                        <div class="message-content-scrolbar" data-simplebar>
+							</div>
+							<div class="message-content-scrolbar" data-simplebar>
 
                             <!-- Message Content Inner -->
-                            <div class="message-content-inner">
-
-                                <!-- Time Sign -->
-                                <div class="message-time-sign">
-                                    <span>28 June, 2020</span>
-                                </div>
-
-                                <div class="message-bubble me">
-                                    <div class="message-bubble-inner">
-                                        <div class="message-avatar"><img src="assets/images/avatars/avatar-2.jpg" alt=""></div>
-                                        <div class="message-text">
-                                            <p>Consectetuer adipiscing elit, sed diam nonummy nibh euismod laoreet.</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-
-                                <div class="message-bubble">
-                                    <div class="message-bubble-inner">
-                                        <div class="message-avatar"><img src="assets/images/avatars/avatar-2.jpg" alt=""></div>
-                                        <div class="message-text">
-                                            <p>Laoreet. dolore magna imperdiet quod mazim placerat facer possim. 👍</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-
-                                <div class="message-bubble me">
-                                    <div class="message-bubble-inner">
-                                        <div class="message-avatar"><img src="assets/images/avatars/avatar-2.jpg" alt=""></div>
-                                        <div class="message-text">
-                                            <p>Albuom commodo consequat. 😉</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-
-                                <!-- Time Sign -->
-                                <div class="message-time-sign">
-                                    <span>Yesterday</span>
-                                </div>
-
-                                <div class="message-bubble me">
-                                    <div class="message-bubble-inner">
-                                        <div class="message-avatar"><img src="assets/images/avatars/avatar-2.jpg" alt=""></div>
-                                        <div class="message-text">
-                                            <p>Option congue nihil imperdiet mazim placerat facer possim.</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-
-                                <div class="message-bubble">
-                                    <div class="message-bubble-inner">
-                                        <div class="message-avatar"><img src="assets/images/avatars/avatar-2.jpg" alt=""></div>
-                                        <div class="message-text">
-                                            <p> Nam liber tempor cum soluta nobis eleifend doming id quod mazim placerat 😎</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-
-                                <div class="message-bubble me">
-                                    <div class="message-bubble-inner">
-                                        <div class="message-avatar"><img src="assets/images/avatars/avatar-2.jpg" alt=""></div>
-                                        <div class="message-text">
-                                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, 🙂</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-
-                                <div class="message-bubble">
-                                    <div class="message-bubble-inner">
-                                        <div class="message-avatar"><img src="assets/images/avatars/avatar-2.jpg" alt=""></div>
-                                        <div class="message-text">
-                                            <!-- Typing Indicator -->
-                                            <div class="typing-indicator">
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
+                            <div class="message-content-inner" id="content_messageByuserId">
+  
                             </div>
                             <!-- Message Content Inner / End -->
 
-                            <!-- Reply Area -->
-                            <div class="message-reply">
-                                <textarea cols="1" rows="1" placeholder="Your Message"></textarea>
-                                <button class="button ripple-effect">Send</button>
-                            </div>
-
                         </div>
-
                     </div>
 
 
@@ -1136,9 +942,299 @@
     <script src="assets/js/uikit.js"></script>
     <script src="assets/js/simplebar.js"></script>
     <script src="assets/js/custom.js"></script>
+    <script src="assets/js/realTimeMessage.js"></script>
     <script src="assets/js/bootstrap-select.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
 </body>
+
+<script th:inline="javascript">
+    function fetchDataAndDisplay() {
+        var currentIndex = 0;
+        var currentSize = 10;
+        var requestData = {
+            index: currentIndex,
+            size: currentSize
+        };
+
+        // Gửi yêu cầu AJAX đầu tiên
+        $.ajax({
+            url: '/fetch/message/alluser',
+            type: 'POST',
+            data: requestData
+        }).then(function(data) {
+            displayListUserMessage(data);
+            console.log('Success:', data);
+        });
+    }
+
+    $(document).ready(fetchDataAndDisplay);
+
+    // Khai báo biến để lưu trạng thái của phần tử được chọn
+    var selectedListItem = null;
+
+    function displayListUserMessage(data) {
+        var ListuserMessageDiv = document.getElementById('listUserMessage');
+        ListuserMessageDiv.innerHTML = ''; // Clear previous results
+        var htmlContent = '';
+        data.forEach(function(user) {
+            console.log("ra: " + user);
+            htmlContent += `<li>`;
+            htmlContent += `<a href="#" data-user-id="${user.user_Target.id}" data-boxchat-id="${user.chatId}">
+                            <div class="message-avatar">
+                                <i class="status-icon status-online"></i>`;
+            // Kiểm tra xem user_Target có avatar_image không
+            if (user.user_Target.avatar_image != null) {
+                htmlContent += '<img src="' + user.user_Target.avatar_image.link_image + '" alt="">';
+            } else {
+                htmlContent += '<img src="assets/images/avata_default.jpg" alt="">';
+            }
+            htmlContent += `</div>
+
+                            <div class="message-by">
+                                <div class="message-by-headline">`;
+            htmlContent += '<h5>' + user.user_Target.last_name + ' ' + user.user_Target.first_name + '</h5>';
+            htmlContent += '<span>' + user.created_date + '</span>';
+            htmlContent += '</div>';
+            htmlContent += '<p>' + user.content + '</p>';
+            htmlContent += `</div>
+                        </a>
+                    `;
+            htmlContent += '</li>';
+        });
+
+        // Gán nội dung HTML vào ListuserMessageDiv
+        ListuserMessageDiv.innerHTML = htmlContent;
+
+        // Thêm sự kiện click cho mỗi phần tử <li>
+        var listItems = ListuserMessageDiv.getElementsByTagName('li');
+        for (var i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener('click', function() {
+                // Kiểm tra xem đã có phần tử được chọn trước đó hay không
+                if (selectedListItem) {
+                    // Nếu có, xóa class active-message khỏi phần tử trước đó
+                    selectedListItem.classList.remove('active-message');
+                }
+                // Thêm class active-message cho phần tử được chọn
+                this.classList.add('active-message');
+                // Cập nhật biến selectedListItem để theo dõi phần tử được chọn
+                selectedListItem = this;
+
+                // Lấy user id của phần tử được chọn và hiển thị tin nhắn của người dùng đó
+                var selectedUserId = this.querySelector('[data-user-id]').dataset.userId;
+                if (selectedUserId) {
+                    getAllMessageByUserId(selectedUserId);
+                    onConnected();                  
+                }
+                
+                var selectedboxchatId = this.querySelector('[data-boxchat-id]').dataset.boxchatId;
+                if(selectedboxchatId) {
+					connectuserEffect();
+					sendMessage
+				}
+            });
+        }
+    }
+
+var stompClient = null;
+var meIdinfoo;
+function connect() {
+	var token = document.getElementById("tokenValue").textContent;
+	meIdinfoo = document.getElementById("meId").innerText.trim();
+	if(token && meIdinfoo) {
+		const socket = new SockJS('/ws');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, onConnected, onError)
+	}
+}
+$(document).ready(connect);
+
+function onConnected() {
+console.log("kết nối thành công")
+}
+
+function onError(error) {
+    console.error("Error occurred during connection:", error);
+    // Xử lý lỗi kết nối, ví dụ: hiển thị thông báo cho người dùng
+}
+
+function connectuserEffect() {
+    var selectedBoxchatElement = document.querySelector('.active-message a[data-boxchat-id]');
+    if (selectedBoxchatElement) {
+        var chatId = selectedBoxchatElement.dataset.boxchatId;
+        if (chatId) {
+            stompClient.subscribe(`/user/${chatId}/private`, onMessageReceived);
+            console.log("Connected successfully.");
+        }
+    } else {
+        console.error("No active message found.");
+    }
+}
+
+function sendMessage(rqtWebsocket){
+	var selectedBoxchatElement = document.querySelector('.active-message a[data-boxchat-id]');
+	if (selectedBoxchatElement) {
+	    var chatId = String(selectedBoxchatElement.dataset.boxchatId);
+	    if (stompClient && rqtWebsocket) {
+	        stompClient.send(`/user/${chatId}/private`,{},JSON.stringify(rqtWebsocket));
+	    }
+    }
+}
+
+function onMessageReceived(rqtWebsocket) {
+    const messageText = JSON.parse(rqtWebsocket.body);
+    console.log("message received from websocket", messageText);
+    displayMessageOnUI(messageText)
+}
+
+function displayMessageOnUI(message) {
+    console.log("Người nhận là: " + message.userTarget);
+    // Chọn phần tử đầu tiên trong NodeList của messageContainer
+    var meIdinfo = document.getElementById("meId").innerText.trim();
+    var idofme = parseInt(meIdinfo);
+    var messageClass = (message.userTarget == idofme) ? 'message-bubble' : 'message-bubble me';
+    var messageContainer = document.querySelector('.newMessage');
+
+    // Kiểm tra xem có phần tử messageContainer không và thêm tin nhắn vào
+    if (messageContainer) {
+        var messageBubble = document.createElement('div');
+        messageBubble.classList.add('message-bubble-inner');
+        messageBubble.innerHTML = `<div class="${messageClass}">
+            <div class="message-text">
+                <p>${message.content}</p>
+            </div>
+            <div class="clearfix"></div>
+            </div>`;
+        messageContainer.appendChild(messageBubble);
+    } else {
+        console.log("Không tìm thấy phần tử messageContainer.");
+    }
+}
+
+
+    // Hiển thị tất cả tin nhắn của một người dùng dựa trên user id
+	    function getAllMessageByUserId(userId) {
+	        var currentIndex1 = 0;
+	        var currentSize1 = 15;
+	        var requestData1 = {
+	            index: currentIndex1,
+	            size: currentSize1
+	        };
+	
+	        $.ajax({
+	            url: '/fetch/message/content/' + userId,
+	            type: 'POST',
+	            data: requestData1,
+	        }).then(function(contentData) {
+				contentData.forEach(chat => {
+					//displayMessageOnUI(chat.user_Target.id, chat.content);
+				})
+	            diplaycontentmessage(contentData);
+	            console.log(contentData);
+	        });
+	    }
+
+function diplaycontentmessage(contentData) {
+    // Hiển thị tên box chat
+    var nameMessageDiv = document.getElementById('name-message');
+    nameMessageDiv.innerHTML = ''; // Xóa dữ liệu cũ
+    var htmlNameMessage = '';
+
+    htmlNameMessage += '<div class="messages-headline">';
+    htmlNameMessage += '<h4>' + contentData[0].user_Target.last_name + ' ' + contentData[0].user_Target.first_name + '</h4>';
+    htmlNameMessage += `<a href="#" class="message-action text-red-500">
+                            <i class="icon-feather-trash-2"></i> 
+                            <span class="md:inline hidden"> Delete Conversation</span> 
+                        </a>
+                    </div>`;
+
+    // Hiển thị tin nhắn
+    var contentMessageDiv = document.getElementById('content_messageByuserId');
+    contentMessageDiv.innerHTML = ''; // Xóa dữ liệu cũ
+    var htmlContentMessage = '';
+    var meIdinfo = document.getElementById("meId").innerText.trim();
+    var idofme = parseInt(meIdinfo);
+    
+    contentData.forEach(function(contentms) {
+        var messageClass = (contentms.user_Source.id != idofme) ? 'message-bubble' : 'message-bubble me';
+        var messageSender = (contentms.user_Source.id !== idofme) ? contentms.user_Source.id : contentms.user_Target.id;
+
+        htmlContentMessage += '<div class="' + messageClass + '">';
+        htmlContentMessage += `<div class="message-bubble-inner">
+                                    <div class="message-avatar">`;
+        if (messageSender != idofme) {
+            if (contentms.user_Source.avatar_image !== null) {
+                htmlContentMessage += '<img src="' + contentms.user_Source.avatar_image.link_image + '" alt="">'
+            } else {
+                htmlContentMessage += '<img src="/assets/images/avata_default.jpg" alt="">'
+            }
+        } else {
+            if (contentms.user_Target.avatar_image !== null) {
+                htmlContentMessage += '<img src="' + contentms.user_Target.avatar_image.link_image + '" alt="">'
+            } else {
+                htmlContentMessage += '<img src="/assets/images/avata_default.jpg" alt="">'
+            }
+        }
+        htmlContentMessage += `</div>
+                                    <div class="message-text">`;
+        htmlContentMessage += '<p>' + contentms.content + '</p>';
+        htmlContentMessage += `</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>`;
+        // Thêm tin nhắn vào phần tử contentMessageDiv
+    });
+    
+    htmlContentMessage += `<div class="newMessage"> </div>`;
+                            
+    htmlContentMessage += `                            <!-- Reply Area -->
+                        <div class="message-reply">
+                            <textarea cols="1" rows="1" placeholder=" Your Message" id="contentMessage"></textarea>
+                            <button class="button ripple-effect" id="sendMessage">Send</button>
+                        </div>`;
+    nameMessageDiv.innerHTML += htmlNameMessage;
+    contentMessageDiv.innerHTML += htmlContentMessage;
+            
+            
+// Lấy phần tử nút gửi tin nhắn
+var sendMessagebutton = document.getElementById('sendMessage');
+
+// Gắn sự kiện click cho nút gửi tin nhắn
+sendMessagebutton.addEventListener('click', function(event) {
+    event.preventDefault(); // Ngăn chặn hành động mặc định của nút gửi tin nhắn
+
+		var contentMessage = document.getElementById('contentMessage').value;
+        var requestData2 = {
+            content: contentMessage,
+        };
+    // Lấy user id của phần tử được chọn
+    var selectedUserId = document.querySelector('.active-message [data-user-id]').dataset.userId;
+    var selectedboxchatId = document.querySelector('.active-message [data-boxchat-id]').dataset.boxchatId;
+    
+    var rqtWebsocket = {
+		content: contentMessage,
+		userTarget: selectedUserId
+	}
+    sendMessage(rqtWebsocket);
+    // Kiểm tra xem có user id được chọn hay không
+    if (selectedUserId) {
+        // Gửi dữ liệu tin nhắn qua AJAX
+        $.ajax({
+	            url: '/fetch/message/' + selectedUserId,
+	            type: 'POST',
+	            data: requestData2,
+	        }).then(function(contentData) {
+	            getAllMessageByUserId(selectedUserId)
+	            console.log(contentData);
+	        });
+    }
+});
+
+
+        }
+</script>
+
 
 </html>

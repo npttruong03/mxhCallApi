@@ -21,4 +21,6 @@ public class Message extends BaseEntity{
 	    private User userTarget;
 
 	    private List<Image> image = new ArrayList<>();
+	    
+	    private String chatId;
 }
