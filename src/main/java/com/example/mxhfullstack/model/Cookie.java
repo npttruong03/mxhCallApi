@@ -9,6 +9,7 @@ public class Cookie {
 	private HttpHeaders headers;
 	private List<String> roles;
 	private String username;
+	
     public String getCookie() {
         return cookie;
     }
